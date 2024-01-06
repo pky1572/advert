@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.xuerun.advert.dao.ReptileDao">
+
+    <resultMap type="com.example.xuerun.advert.entity.Reptile" id="ReptileMap">
+        <result property="reptileid" column="reptileid" jdbcType="INTEGER"/>
+        <result property="locationid" column="locationid" jdbcType="INTEGER"/>
+        <result property="websiteid" column="websiteid" jdbcType="INTEGER"/>
+        <result property="divtitle" column="divtitle" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询多个-->
+    <select id="queryWebIdAotomatic" resultMap="ReptileMap">
+        select
+          reptileid, locationid, websiteid, divtitle
+        from lighthose.reptile
+        where websiteid = #{websiteid}
+    </select>
+
+    <!--
+    <select id="queryById" resultMap="ReptileMap">
+        select
+          reptileid, locationid, websiteid, divtitle
+        from lighthose.reptile
+        where reptileid = #{reptileid}
+    </select>
+
+    <select id="queryAllByLimit" resultMap="ReptileMap">
+        select
+          reptileid, locationid, websiteid, divtitle
+        from lighthose.reptile
+        limit #{offset}, #{limit}
+    </select>
+
+    <select id="queryAll" resultMap="ReptileMap">
+        select
+          reptileid, locationid, websiteid, divtitle
+        from lighthose.reptile
+        <where>
+            <if test="reptileid != null">
+                and reptileid = #{reptileid}
+            </if>
+            <if test="locationid != null">
+                and locationid = #{locationid}
+            </if>
+            <if test="websiteid != null">
+                and websiteid = #{websiteid}
+            </if>
+            <if test="divtitle != null and divtitle != ''">
+                and divtitle = #{divtitle}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insert" keyProperty="reptileid" useGeneratedKeys="true">
+        insert into lighthose.reptile(locationid, websiteid, divtitle)
+        values (#{locationid}, #{websiteid}, #{divtitle})
+    </insert>
+
+    <update id="update">
+        update lighthose.reptile
+        <set>
+            <if test="locationid != null">
+                locationid = #{locationid},
+            </if>
+            <if test="websiteid != null">
+                websiteid = #{websiteid},
+            </if>
+            <if test="divtitle != null and divtitle != ''">
+                divtitle = #{divtitle},
+            </if>
+        </set>
+        where reptileid = #{reptileid}
+    </update>
+
+    <delete id="deleteById">
+        delete from lighthose.reptile where reptileid = #{reptileid}
+    </delete>
+-->
+</mapper>

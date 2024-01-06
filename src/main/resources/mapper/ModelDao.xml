@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.xuerun.advert.dao.ModelDao">
+
+    <resultMap type="com.example.xuerun.advert.entity.Brand" id="ModelMap">
+        <result property="modelid" column="modelid" jdbcType="INTEGER"/>
+        <result property="modelname" column="modelname" jdbcType="VARCHAR"/>
+        <result property="createtime" column="createtime" jdbcType="TIMESTAMP"/>
+        <result property="updatetime" column="updatetime" jdbcType="TIMESTAMP"/>
+        <result property="state" column="state" jdbcType="INTEGER"/>
+    </resultMap>
+    <!--查询多个-->
+    <select id="queryAotomatic" resultMap="ModelMap">
+        select
+          modelid, modelname, createtime, updatetime, state
+        from lighthose.brand
+        where state = #{state}
+    </select>
+
+    <select id="queryById" resultMap="ModelMap">
+        select
+          modelid, modelname, createtime, updatetime, state
+        from lighthose.brand
+        where modelid = #{modelid}
+    </select>
+    <!--
+
+
+    <select id="queryAllByLimit" resultMap="ModelMap">
+        select
+          modelid, modelname, createtime, updatetime, state
+        from lighthose.brand
+        limit #{offset}, #{limit}
+    </select>
+
+    <select id="queryAll" resultMap="ModelMap">
+        select
+          modelid, modelname, createtime, updatetime, state
+        from lighthose.brand
+        <where>
+            <if test="modelid != null">
+                and modelid = #{modelid}
+            </if>
+            <if test="modelname != null and modelname != ''">
+                and modelname = #{modelname}
+            </if>
+            <if test="createtime != null">
+                and createtime = #{createtime}
+            </if>
+            <if test="updatetime != null">
+                and updatetime = #{updatetime}
+            </if>
+            <if test="state != null">
+                and state = #{state}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insert" keyProperty="modelid" useGeneratedKeys="true">
+        insert into lighthose.brand(modelname, createtime, updatetime, state)
+        values (#{modelname}, #{createtime}, #{updatetime}, #{state})
+    </insert>
+
+    <update id="update">
+        update lighthose.brand
+        <set>
+            <if test="modelname != null and modelname != ''">
+                modelname = #{modelname},
+            </if>
+            <if test="createtime != null">
+                createtime = #{createtime},
+            </if>
+            <if test="updatetime != null">
+                updatetime = #{updatetime},
+            </if>
+            <if test="state != null">
+                state = #{state},
+            </if>
+        </set>
+        where modelid = #{modelid}
+    </update>
+
+    <delete id="deleteById">
+        delete from lighthose.brand where modelid = #{modelid}
+    </delete>
+-->
+</mapper>

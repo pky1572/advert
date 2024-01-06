@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.xuerun.advert.dao.PictureDao">
+
+    <resultMap type="com.example.xuerun.advert.entity.Picture" id="PictureMap">
+        <result property="pictreid" column="pictreid" jdbcType="INTEGER"/>
+        <result property="websiteid" column="websiteid" jdbcType="INTEGER"/>
+        <result property="websiteurl" column="websiteurl" jdbcType="VARCHAR"/>
+        <result property="websitename" column="websitename" jdbcType="VARCHAR"/>
+        <result property="articleurl" column="articleurl" jdbcType="VARCHAR"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="pictreurl" column="pictreurl" jdbcType="VARCHAR"/>
+        <result property="modelname" column="modelname" jdbcType="VARCHAR"/>
+        <result property="level" column="level" jdbcType="VARCHAR"/>
+        <result property="createtime" column="createtime" jdbcType="TIMESTAMP"/>
+        <result property="updatetime" column="updatetime" jdbcType="TIMESTAMP"/>
+        <result property="state" column="state" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--批量新增-->
+    <insert id="insertBatch">
+        insert into lighthose.picture
+        (websiteid, websiteurl, websitename, articleurl, title, pictreurl, modelname, level, createtime, updatetime, state)
+        values
+        <foreach collection="list" item="pictureList" separator="," close=";" >
+            (#{pictureList.websiteid}, #{pictureList.websiteurl}, #{pictureList.websitename}, #{pictureList.articleurl}, #{pictureList.title},
+            #{pictureList.pictreurl}, #{pictureList.modelname}, #{pictureList.level},now(), now(), #{pictureList.state})
+        </foreach>
+    </insert>
+
+    <select id="queryAllPicture" resultMap="PictureMap">
+        select
+        pictreid, websiteid, websiteurl, websitename, articleurl, title, pictreurl, modelname, level, createtime, updatetime, state
+        from lighthose.picture
+        where state = #{state}
+        order by websiteid ,title,createtime
+    </select>
+
+    <select id="queryById" resultMap="PictureMap">
+        select
+          pictreid, websiteid, websiteurl, websitename, articleurl, title, pictreurl, modelname, level, createtime, updatetime, state
+        from lighthose.picture
+        where pictreid = #{pictreid}
+    </select>
+
+    <insert id="insert" keyProperty="pictreid" useGeneratedKeys="true">
+        insert into lighthose.picture
+        (websiteid, websiteurl, websitename, articleurl, title, pictreurl, modelname, level, createtime, updatetime, state)
+        values
+        (#{websiteid}, #{websiteurl}, #{websitename}, #{articleurl}, #{title}, #{pictreurl}, #{modelname}, #{level}, #{createtime}, #{updatetime}, #{state})
+    </insert>
+
+    <update id="update">
+        update lighthose.picture
+        <set>
+            <if test="websiteid != null">
+                websiteid = #{websiteid},
+            </if>
+            <if test="websiteurl != null and websiteurl != ''">
+                websiteurl = #{websiteurl},
+            </if>
+            <if test="websitename != null and websitename != ''">
+                websitename = #{websitename},
+            </if>
+            <if test="articleurl != null and articleurl != ''">
+                articleurl = #{articleurl},
+            </if>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="pictreurl != null and pictreurl != ''">
+                pictreurl = #{pictreurl},
+            </if>
+            <if test="modelname != null and modelname != ''">
+                modelname = #{modelname},
+            </if>
+            <if test="level != null and level != ''">
+                level = #{level},
+            </if>
+            <if test="createtime != null">
+                createtime = #{createtime},
+            </if>
+            <if test="updatetime != null">
+                updatetime = #{updatetime},
+            </if>
+            <if test="state != null">
+                state = #{state},
+            </if>
+        </set>
+        where pictreid = #{pictreid}
+    </update>
+
+    <!--
+    <select id="queryById" resultMap="PictureMap">
+        select
+          pictreid, websiteid, websiteurl, websitename, articleurl, title, pictreurl, modelname, level, createtime, updatetime, state
+        from lighthose.picture
+        where pictreid = #{pictreid}
+    </select>
+
+
+    <select id="queryAllByLimit" resultMap="PictureMap">
+        select
+          pictreid, websiteid, websiteurl, websitename, articleurl, title, pictreurl, modelname, level, createtime, updatetime, state
+        from lighthose.picture
+        limit #{offset}, #{limit}
+    </select>
+
+    <select id="queryAll" resultMap="PictureMap">
+        select
+          pictreid, websiteid, websiteurl, websitename, articleurl, title, pictreurl, modelname, level, createtime, updatetime, state
+        from lighthose.picture
+        <where>
+            <if test="pictreid != null">
+                and pictreid = #{pictreid}
+            </if>
+            <if test="websiteid != null">
+                and websiteid = #{websiteid}
+            </if>
+            <if test="websiteurl != null and websiteurl != ''">
+                and websiteurl = #{websiteurl}
+            </if>
+            <if test="websitename != null and websitename != ''">
+                and websitename = #{websitename}
+            </if>
+            <if test="articleurl != null and articleurl != ''">
+                and articleurl = #{articleurl}
+            </if>
+            <if test="title != null and title != ''">
+                and title = #{title}
+            </if>
+            <if test="pictreurl != null and pictreurl != ''">
+                and pictreurl = #{pictreurl}
+            </if>
+            <if test="modelname != null and modelname != ''">
+                and modelname = #{modelname}
+            </if>
+            <if test="level != null and level != ''">
+                and level = #{level}
+            </if>
+            <if test="createtime != null">
+                and createtime = #{createtime}
+            </if>
+            <if test="updatetime != null">
+                and updatetime = #{updatetime}
+            </if>
+            <if test="state != null">
+                and state = #{state}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insert" keyProperty="pictreid" useGeneratedKeys="true">
+        insert into lighthose.picture(websiteid, websiteurl, websitename, articleurl, title, pictreurl, modelname, level, createtime, updatetime, state)
+        values (#{websiteid}, #{websiteurl}, #{websitename}, #{articleurl}, #{title}, #{pictreurl}, #{modelname}, #{level}, #{createtime}, #{updatetime}, #{state})
+    </insert>
+
+    <update id="update">
+        update lighthose.picture
+        <set>
+            <if test="websiteid != null">
+                websiteid = #{websiteid},
+            </if>
+            <if test="websiteurl != null and websiteurl != ''">
+                websiteurl = #{websiteurl},
+            </if>
+            <if test="websitename != null and websitename != ''">
+                websitename = #{websitename},
+            </if>
+            <if test="articleurl != null and articleurl != ''">
+                articleurl = #{articleurl},
+            </if>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="pictreurl != null and pictreurl != ''">
+                pictreurl = #{pictreurl},
+            </if>
+            <if test="modelname != null and modelname != ''">
+                modelname = #{modelname},
+            </if>
+            <if test="level != null and level != ''">
+                level = #{level},
+            </if>
+            <if test="createtime != null">
+                createtime = #{createtime},
+            </if>
+            <if test="updatetime != null">
+                updatetime = #{updatetime},
+            </if>
+            <if test="state != null">
+                state = #{state},
+            </if>
+        </set>
+        where pictreid = #{pictreid}
+    </update>
+
+    <delete id="deleteById">
+        delete from lighthose.picture where pictreid = #{pictreid}
+    </delete>
+-->
+</mapper>

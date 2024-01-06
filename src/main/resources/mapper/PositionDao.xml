@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.xuerun.advert.dao.PositionDao">
+
+    <resultMap type="com.example.xuerun.advert.entity.Position" id="PositionMap">
+        <result property="locationid" column="locationid" jdbcType="INTEGER"/>
+        <result property="websiteid" column="websiteid" jdbcType="INTEGER"/>
+        <result property="region" column="region" jdbcType="VARCHAR"/>
+        <result property="scrollarea" column="scrollarea" jdbcType="VARCHAR"/>
+        <result property="level" column="level" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询多个-->
+    <select id="queryWebIdAotomatic" resultMap="PositionMap">
+        select
+          locationid, websiteid, region, scrollarea, level
+        from lighthose.position
+        where websiteid = #{websiteid}
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="PositionMap">
+        select
+          locationid, websiteid, region, scrollarea, level
+        from lighthose.position
+        where locationid = #{locationid}
+    </select>
+
+    <!--
+    <select id="queryById" resultMap="PositionMap">
+        select
+          locationid, websiteid, region, scrollarea, level
+        from lighthose.position
+        where locationid = #{locationid}
+    </select>
+
+    <select id="queryAllByLimit" resultMap="PositionMap">
+        select
+          locationid, websiteid, region, scrollarea, level
+        from lighthose.position
+        limit #{offset}, #{limit}
+    </select>
+
+    <select id="queryAll" resultMap="PositionMap">
+        select
+          locationid, websiteid, region, scrollarea, level
+        from lighthose.position
+        <where>
+            <if test="locationid != null">
+                and locationid = #{locationid}
+            </if>
+            <if test="websiteid != null">
+                and websiteid = #{websiteid}
+            </if>
+            <if test="region != null and region != ''">
+                and region = #{region}
+            </if>
+            <if test="scrollarea != null and scrollarea != ''">
+                and scrollarea = #{scrollarea}
+            </if>
+            <if test="level != null and level != ''">
+                and level = #{level}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insert" keyProperty="locationid" useGeneratedKeys="true">
+        insert into lighthose.position(websiteid, region, scrollarea, level)
+        values (#{websiteid}, #{region}, #{scrollarea}, #{level})
+    </insert>
+
+    <update id="update">
+        update lighthose.position
+        <set>
+            <if test="websiteid != null">
+                websiteid = #{websiteid},
+            </if>
+            <if test="region != null and region != ''">
+                region = #{region},
+            </if>
+            <if test="scrollarea != null and scrollarea != ''">
+                scrollarea = #{scrollarea},
+            </if>
+            <if test="level != null and level != ''">
+                level = #{level},
+            </if>
+        </set>
+        where locationid = #{locationid}
+    </update>
+
+    <delete id="deleteById">
+        delete from lighthose.position where locationid = #{locationid}
+    </delete>
+-->
+</mapper>

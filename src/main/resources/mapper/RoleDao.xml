@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.xuerun.advert.dao.RoleDao">
+
+    <resultMap type="com.example.xuerun.advert.entity.Role" id="RoleMap">
+        <result property="roleid" column="roleid" jdbcType="INTEGER"/>
+        <result property="modelid" column="modelid" jdbcType="INTEGER"/>
+        <result property="modelname" column="modelname" jdbcType="VARCHAR"/>
+        <result property="roletitle" column="roletitle" jdbcType="VARCHAR"/>
+        <result property="websiteid" column="websiteid" jdbcType="INTEGER"/>
+        <result property="websiteurl" column="websiteurl" jdbcType="VARCHAR"/>
+        <result property="createtime" column="createtime" jdbcType="TIMESTAMP"/>
+        <result property="updatetime" column="updatetime" jdbcType="TIMESTAMP"/>
+        <result property="state" column="state" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询多个-->
+    <select id="queryAotomatic" resultMap="RoleMap">
+        select
+            roleid, modelid, modelname, roletitle, websiteid, websiteurl, createtime, updatetime, state
+        from lighthose.role
+        where state = #{state}
+    </select>
+
+    <!--查询一个-->
+    <select id="querytitle" resultMap="RoleMap">
+        select
+            roleid, modelid, modelname, roletitle, websiteid, websiteurl, createtime, updatetime, state
+        from lighthose.role
+        where roletitle = #{roletitle}
+    </select>
+    <!--新增所有列-->
+    <insert id="insert" >
+        insert into lighthose.role(modelid, modelname, roletitle, websiteid, websiteurl, createtime, updatetime, state)
+        value (#{modelid},#{modelname},#{roletitle}, #{websiteid}, #{websiteurl}, now(),now(), #{state})
+    </insert>
+    <!--查询一个-->
+    <select id="queryById" resultMap="RoleMap">
+        select
+          roleid, modelid, modelname, roletitle, websiteid, websiteurl, createtime, updatetime, state
+        from lighthose.role
+        where roleid = #{roleid}
+    </select>
+
+    <update id="update">
+        update lighthose.role
+        <set>
+            <if test="modelid != null">
+                modelid = #{modelid},
+            </if>
+            <if test="modelname != null and modelname != ''">
+                modelname = #{modelname},
+            </if>
+            <if test="roletitle != null and roletitle != ''">
+                roletitle = #{roletitle},
+            </if>
+            <if test="websiteid != null">
+                websiteid = #{websiteid},
+            </if>
+            <if test="websiteurl != null and websiteurl != ''">
+                websiteurl = #{websiteurl},
+            </if>
+            <if test="state != null">
+                state = #{state},
+            </if>
+        </set>
+        where roleid = #{roleid}
+    </update>
+
+    <delete id="deleteById">
+        delete from lighthose.role where roleid = #{roleid}
+    </delete>
+    <!--
+    <select id="queryById" resultMap="RoleMap">
+        select
+          roleid, modelid, modelname, roletitle, websiteid, websiteurl, createtime, updatetime, state
+        from lighthose.role
+        where roleid = #{roleid}
+    </select>
+
+    <select id="queryAllByLimit" resultMap="RoleMap">
+        select
+          roleid, modelid, modelname, roletitle, websiteid, websiteurl, createtime, updatetime, state
+        from lighthose.role
+        limit #{offset}, #{limit}
+    </select>
+
+    <select id="queryAll" resultMap="RoleMap">
+        select
+          roleid, modelid, modelname, roletitle, websiteid, websiteurl, createtime, updatetime, state
+        from lighthose.role
+        <where>
+            <if test="roleid != null">
+                and roleid = #{roleid}
+            </if>
+            <if test="modelid != null">
+                and modelid = #{modelid}
+            </if>
+            <if test="modelname != null and modelname != ''">
+                and modelname = #{modelname}
+            </if>
+            <if test="roletitle != null and roletitle != ''">
+                and roletitle = #{roletitle}
+            </if>
+            <if test="websiteid != null">
+                and websiteid = #{websiteid}
+            </if>
+            <if test="websiteurl != null and websiteurl != ''">
+                and websiteurl = #{websiteurl}
+            </if>
+            <if test="createtime != null">
+                and createtime = #{createtime}
+            </if>
+            <if test="updatetime != null">
+                and updatetime = #{updatetime}
+            </if>
+            <if test="state != null">
+                and state = #{state}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insert" keyProperty="roleid" useGeneratedKeys="true">
+        insert into lighthose.role(modelid, modelname, roletitle, websiteid, websiteurl, createtime, updatetime, state)
+        values (#{modelid}, #{modelname}, #{roletitle}, #{websiteid}, #{websiteurl}, #{createtime}, #{updatetime}, #{state})
+    </insert>
+
+    <update id="update">
+        update lighthose.role
+        <set>
+            <if test="modelid != null">
+                modelid = #{modelid},
+            </if>
+            <if test="modelname != null and modelname != ''">
+                modelname = #{modelname},
+            </if>
+            <if test="roletitle != null and roletitle != ''">
+                roletitle = #{roletitle},
+            </if>
+            <if test="websiteid != null">
+                websiteid = #{websiteid},
+            </if>
+            <if test="websiteurl != null and websiteurl != ''">
+                websiteurl = #{websiteurl},
+            </if>
+            <if test="createtime != null">
+                createtime = #{createtime},
+            </if>
+            <if test="updatetime != null">
+                updatetime = #{updatetime},
+            </if>
+            <if test="state != null">
+                state = #{state},
+            </if>
+        </set>
+        where roleid = #{roleid}
+    </update>
+
+
+-->
+</mapper>

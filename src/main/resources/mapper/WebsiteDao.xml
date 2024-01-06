@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.xuerun.advert.dao.WebsiteDao">
+
+    <resultMap type="com.example.xuerun.advert.entity.Website" id="WebsiteMap">
+        <result property="websiteid" column="websiteid" jdbcType="INTEGER"/>
+        <result property="websitename" column="websitename" jdbcType="VARCHAR"/>
+        <result property="websiteurl" column="websiteurl" jdbcType="VARCHAR"/>
+        <result property="createtime" column="createtime" jdbcType="TIMESTAMP"/>
+        <result property="updatetime" column="updatetime" jdbcType="TIMESTAMP"/>
+        <result property="state" column="state" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询多个-->
+    <select id="queryAotomatic" resultMap="WebsiteMap">
+        select
+            websiteid, websitename, websiteurl, createtime, updatetime, state
+        from lighthose.website
+        where state = #{state}
+    </select>
+    <!--查询单个-->
+    <select id="queryById" resultMap="WebsiteMap">
+        select
+          websiteid, websitename, websiteurl, createtime, updatetime, state
+        from lighthose.website
+        where websiteid = #{websiteid}
+    </select>
+
+    <!--
+    <select id="queryById" resultMap="WebsiteMap">
+        select
+          websiteid, websitename, websiteurl, createtime, updatetime, state
+        from lighthose.website
+        where websiteid = #{websiteid}
+    </select>
+
+    <select id="queryAllByLimit" resultMap="WebsiteMap">
+        select
+          websiteid, websitename, websiteurl, createtime, updatetime, state
+        from lighthose.website
+        limit #{offset}, #{limit}
+    </select>
+
+    <select id="queryAll" resultMap="WebsiteMap">
+        select
+          websiteid, websitename, websiteurl, createtime, updatetime, state
+        from lighthose.website
+        <where>
+            <if test="websiteid != null">
+                and websiteid = #{websiteid}
+            </if>
+            <if test="websitename != null and websitename != ''">
+                and websitename = #{websitename}
+            </if>
+            <if test="websiteurl != null and websiteurl != ''">
+                and websiteurl = #{websiteurl}
+            </if>
+            <if test="createtime != null">
+                and createtime = #{createtime}
+            </if>
+            <if test="updatetime != null">
+                and updatetime = #{updatetime}
+            </if>
+            <if test="state != null">
+                and state = #{state}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insert" keyProperty="websiteid" useGeneratedKeys="true">
+        insert into lighthose.website(websitename, websiteurl, createtime, updatetime, state)
+        values (#{websitename}, #{websiteurl}, #{createtime}, #{updatetime}, #{state})
+    </insert>
+
+    <update id="update">
+        update lighthose.website
+        <set>
+            <if test="websitename != null and websitename != ''">
+                websitename = #{websitename},
+            </if>
+            <if test="websiteurl != null and websiteurl != ''">
+                websiteurl = #{websiteurl},
+            </if>
+            <if test="createtime != null">
+                createtime = #{createtime},
+            </if>
+            <if test="updatetime != null">
+                updatetime = #{updatetime},
+            </if>
+            <if test="state != null">
+                state = #{state},
+            </if>
+        </set>
+        where websiteid = #{websiteid}
+    </update>
+
+    <delete id="deleteById">
+        delete from lighthose.website where websiteid = #{websiteid}
+    </delete>
+    -->
+</mapper>
